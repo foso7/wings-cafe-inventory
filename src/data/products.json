@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "name": "Chicken Wings",
+    "description": "Spicy grilled chicken wings",
+    "category": "Meats",
+    "price": 8,
+    "quantity": 10,
+    "image": "/images/chicken.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Beef Steak",
+    "description": "Tender beef steak",
+    "category": "Meats",
+    "price": 15,
+    "quantity": 5,
+    "image": "/images/beef.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Lettuce",
+    "description": "Fresh lettuce",
+    "category": "Vegetables",
+    "price": 2,
+    "quantity": 20,
+    "image": "/images/lettuce.jpg"
+  }
+]
+
+  

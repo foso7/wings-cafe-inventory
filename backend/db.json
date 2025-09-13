@@ -1,0 +1,31 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Chicken Wings",
+      "description": "Spicy chicken wings with secret sauce",
+      "category": "Meats",
+      "price": 12.99,
+      "quantity": 50,
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "Fresh Salad",
+      "description": "Mixed greens with vegetables",
+      "category": "Vegetables",
+      "price": 8.99,
+      "quantity": 30,
+      "image": ""
+    },
+    {
+      "id": 3,
+      "name": "Orange Juice",
+      "description": "Freshly squeezed orange juice",
+      "category": "Drinks",
+      "price": 4.99,
+      "quantity": 20,
+      "image": ""
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Chicken Wings",
+      "description": "Spicy chicken wings with secret sauce",
+      "category": "Meats",
+      "price": 49.95,
+      "quantity": 50,
+      "image": ""
+    },
+    {
+      "id": "2",
+      "name": "Fresh Salad",
+      "description": "Mixed greens with vegetables",
+      "category": "Vegetables",
+      "price": 8.99,
+      "quantity": 30,
+      "image": ""
+    },
+    {
+      "id": "3",
+      "name": "Orange Juice",
+      "description": "Freshly squeezed orange juice",
+      "category": "Drinks",
+      "price": 4.99,
+      "quantity": 18,
+      "image": ""
+    },
+    {
+      "id": "4",
+      "name": "Apples",
+      "description": "Fresh apples",
+      "category": "Fruits",
+      "price": 20,
+      "quantity": 22,
+      "image": ""
+    },
+    {
+      "id": "5",
+      "name": "Beef Steak",
+      "description": "Medium rare steak",
+      "category": "Meats",
+      "price": 78,
+      "quantity": 100,
+      "image": ""
+    },
+    {
+      "id": "6",
+      "name": "Tomato",
+      "description": "Fresh tomatoes",
+      "category": "Vegetables",
+      "price": 3,
+      "quantity": 40,
+      "image": ""
+    },
+    {
+      "id": "7080",
+      "name": "Sprite",
+      "description": "cool",
+      "category": "Drinks",
+      "price": 25,
+      "quantity": 65,
+      "image": ""
+    },
+    {
+      "id": "6bbe",
+      "name": "Motoho",
+      "description": "mabele",
+      "category": "Drinks",
+      "price": 12,
+      "quantity": 43,
+      "image": ""
+    },
+    {
+      "id": "de65",
+      "name": "Cucumber",
+      "description": "",
+      "category": "Vegatables",
+      "price": 14,
+      "quantity": 72,
+      "image": ""
+    }
+  ],
+  "customers": [
+    {
+      "id": "1",
+      "name": "Thapelo",
+      "email": "raskidkid@gmail.com",
+      "phone": "57634784",
+      "address": "Oxbow"
+    },
+    {
+      "id": "4e8d",
+      "name": "Moorosi Rantso",
+      "email": "moorosi@gmail.com",
+      "phone": "53636748",
+      "address": "Mft"
+    }
+  ],
+  "sales": [
+    {
+      "id": "1",
+      "productId": 1,
+      "customerId": 1,
+      "quantity": 3,
+      "saleDate": "2025-09-12",
+      "totalAmount": 149.85,
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "productCategory": "Meats",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "2",
+      "productId": 1,
+      "customerId": 1,
+      "quantity": 3,
+      "saleDate": "2025-09-12",
+      "totalAmount": 149.85,
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "productCategory": "Meats",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "3",
+      "productId": 4,
+      "customerId": 1,
+      "quantity": 3,
+      "saleDate": "2025-09-12",
+      "totalAmount": 60,
+      "productName": "Apples",
+      "productPrice": 20,
+      "productCategory": "Fruits",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "4",
+      "productId": 1,
+      "customerId": 1,
+      "quantity": 2,
+      "saleDate": "2025-09-12",
+      "totalAmount": 99.9,
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "productCategory": "Meats",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "5",
+      "productId": 4,
+      "customerId": 1,
+      "quantity": 4,
+      "saleDate": "2025-09-12",
+      "totalAmount": 80,
+      "productName": "Apples",
+      "productPrice": 20,
+      "productCategory": "Fruits",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "d2b9",
+      "productId": "4",
+      "customerId": "1",
+      "quantity": 1,
+      "saleDate": "2025-09-12",
+      "totalAmount": 20,
+      "productName": "Apples",
+      "productPrice": 20,
+      "productCategory": "Fruits",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "c96e",
+      "productId": "6bbe",
+      "customerId": "1",
+      "quantity": 1,
+      "saleDate": "2025-09-12",
+      "totalAmount": 12,
+      "productName": "Motoho",
+      "productPrice": 12,
+      "productCategory": "Drinks",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "5af0",
+      "productId": "3",
+      "customerId": "1",
+      "quantity": 1,
+      "saleDate": "2025-09-12",
+      "totalAmount": 4.99,
+      "productName": "Orange Juice",
+      "productPrice": 4.99,
+      "productCategory": "Drinks",
+      "customerName": "Thapelo"
+    },
+    {
+      "id": "9635",
+      "productId": "3",
+      "customerId": "1",
+      "quantity": 1,
+      "saleDate": "2025-09-12",
+      "totalAmount": 4.99,
+      "productName": "Orange Juice",
+      "productPrice": 4.99,
+      "productCategory": "Drinks",
+      "customerName": "Thapelo"
+    }
+  ]
+}
