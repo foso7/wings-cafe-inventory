@@ -1,11 +1,14 @@
 // ProductList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE from '../config/api';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // Load products from backend
   useEffect(() => {
@@ -14,41 +17,58 @@ function ProductList() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/products");
+      setLoading(true);
+      const res = await axios.get(`${API_BASE}/products`);
       setProducts(res.data);
+      setError('');
     } catch (err) {
       console.error("Error fetching products:", err);
-      alert("Failed to fetch products. Make sure the backend is running.");
+      setError("Failed to fetch products. Make sure backend is running on port 5000.");
+    } finally {
+      setLoading(false);
     }
   };
 
   // Handle edit
   const handleEdit = (product) => {
-    setEditingProduct(product);
+    setEditingProduct({...product});
     setShowForm(true);
   };
 
-  // Handle update
+  // Handle update - CHANGED FROM PATCH TO PUT
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:5000/products/M{editingProduct.id}`, editingProduct);
+      setLoading(true);
+      await axios.put(`${API_BASE}/products/${editingProduct.id}`, editingProduct);
       setShowForm(false);
       setEditingProduct(null);
+      setError('');
       fetchProducts(); // Refresh the list
+      alert('Product updated successfully!');
     } catch (err) {
       console.error("Error updating product:", err);
+      setError("Failed to update product. Check console for details.");
+    } finally {
+      setLoading(false);
     }
   };
 
   // Handle delete
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
+    
     try {
-      await axios.delete(`http://localhost:5000/products/M{id}`);
+      setLoading(true);
+      await axios.delete(`${API_BASE}/products/${id}`);
+      setError('');
       fetchProducts(); // Refresh the list
+      alert('Product deleted successfully!');
     } catch (err) {
       console.error("Error deleting product:", err);
+      setError("Failed to delete product. Check console for details.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,13 +77,23 @@ function ProductList() {
     const { name, value } = e.target;
     setEditingProduct({
       ...editingProduct,
-      [name]: value
+      [name]: name === 'price' ? parseFloat(value) : 
+              name === 'quantity' ? parseInt(value) : value
     });
+  };
+
+  // Close the edit form
+  const handleCancelEdit = () => {
+    setShowForm(false);
+    setEditingProduct(null);
   };
 
   return (
     <div className="product-list-container">
       <h2>Product Management</h2>
+      
+      {error && <div className="error-message">{error}</div>}
+      {loading && <div className="loading">Processing...</div>}
       
       {/* Edit Form */}
       {showForm && editingProduct && (
@@ -83,11 +113,11 @@ function ProductList() {
               </div>
               <div className="form-group">
                 <label>Description:</label>
-                <input
-                  type="text"
+                <textarea
                   name="description"
                   value={editingProduct.description || ''}
                   onChange={handleInputChange}
+                  rows="3"
                 />
               </div>
               <div className="form-group">
@@ -121,13 +151,22 @@ function ProductList() {
                   required
                 />
               </div>
+              <div className="form-group">
+                <label>Image URL:</label>
+                <input
+                  type="text"
+                  name="image"
+                  value={editingProduct.image || ''}
+                  onChange={handleInputChange}
+                  placeholder="/images/product.jpg"
+                />
+              </div>
               
               <div className="form-buttons">
-                <button type="submit">Update Product</button>
-                <button type="button" onClick={() => {
-                  setShowForm(false);
-                  setEditingProduct(null);
-                }}>
+                <button type="submit" disabled={loading}>
+                  {loading ? 'Updating...' : 'Update Product'}
+                </button>
+                <button type="button" onClick={handleCancelEdit} disabled={loading}>
                   Cancel
                 </button>
               </div>
@@ -163,18 +202,23 @@ function ProductList() {
               <td>{product.description}</td>
               <td>{product.category}</td>
               <td>M{parseFloat(product.price).toFixed(2)}</td>
-              <td>{product.quantity}</td>
+              <td className={product.quantity < 5 ? 'stock-warning' : ''}>
+                {product.quantity}
+                {product.quantity < 5 && <span className="low-stock-indicator"> (Low Stock)</span>}
+              </td>
               <td>
                 <div className="action-buttons">
                   <button 
                     className="btn-edit"
                     onClick={() => handleEdit(product)}
+                    disabled={loading}
                   >
                     Edit
                   </button>
                   <button 
                     className="btn-delete"
                     onClick={() => handleDelete(product.id)}
+                    disabled={loading}
                   >
                     Delete
                   </button>
@@ -185,7 +229,7 @@ function ProductList() {
         </tbody>
       </table>
 
-      {products.length === 0 && (
+      {products.length === 0 && !loading && (
         <p className="no-products">No products found. Add some products in the Inventory section.</p>
       )}
     </div>

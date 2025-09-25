@@ -14,6 +14,8 @@ function Inventory() {
     quantity: "",
     image: ""
   });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   // Load products on mount
   useEffect(() => {
@@ -22,11 +24,14 @@ function Inventory() {
 
   const fetchProducts = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("http://localhost:5000/products");
       setProducts(res.data);
     } catch (err) {
       console.error("Error fetching products:", err);
       alert("Failed to fetch products. Make sure the backend is running.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,19 +41,38 @@ function Inventory() {
       alert("Select a product and enter a quantity change.");
       return;
     }
+    
     try {
-      const productToUpdate = products.find(p => p.id === parseInt(selectedProductId));
-      const updatedQuantity = productToUpdate.quantity + parseInt(quantityChange);
+      setLoading(true);
+      const productToUpdate = products.find(p => p.id === selectedProductId);
+      
+      if (!productToUpdate) {
+        alert("Product not found!");
+        return;
+      }
+      
+      const updatedQuantity = parseInt(productToUpdate.quantity) + parseInt(quantityChange);
+      
+      if (updatedQuantity < 0) {
+        alert("Cannot set quantity to a negative value.");
+        return;
+      }
 
-      await axios.patch(`http://localhost:5000/products/M{selectedProductId}`, {
+      await axios.patch(`http://localhost:5000/products/${selectedProductId}`, {
         quantity: updatedQuantity
       });
 
+      setMessage(`Stock updated successfully! New quantity: ${updatedQuantity}`);
+      setTimeout(() => setMessage(""), 3000);
+      
       setQuantityChange("");
       setSelectedProductId("");
       fetchProducts();
     } catch (err) {
       console.error("Error updating stock:", err);
+      alert("Failed to update stock. Check console for details.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,12 +82,19 @@ function Inventory() {
       alert("Please fill in all required fields.");
       return;
     }
+    
     try {
+      setLoading(true);
       await axios.post("http://localhost:5000/products", {
         ...newProduct,
         price: parseFloat(newProduct.price),
         quantity: parseInt(newProduct.quantity),
+        id: Date.now().toString() // Generate a unique ID
       });
+      
+      setMessage("Product added successfully!");
+      setTimeout(() => setMessage(""), 3000);
+      
       setNewProduct({
         name: "",
         description: "",
@@ -75,23 +106,38 @@ function Inventory() {
       fetchProducts();
     } catch (err) {
       console.error("Error adding product:", err);
+      alert("Failed to add product. Check console for details.");
+    } finally {
+      setLoading(false);
     }
   };
 
   // Delete product
   const handleDeleteProduct = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
+    
     try {
-      await axios.delete(`http://localhost:5000/products/M{id}`);
+      setLoading(true);
+      await axios.delete(`http://localhost:5000/products/${id}`);
+      
+      setMessage("Product deleted successfully!");
+      setTimeout(() => setMessage(""), 3000);
+      
       fetchProducts();
     } catch (err) {
       console.error("Error deleting product:", err);
+      alert("Failed to delete product. Check console for details.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="main-container">
       <h2 className="page-header">Wings Cafe Inventory Management</h2>
+      
+      {message && <div className="success-message">{message}</div>}
+      {loading && <div className="loading">Processing...</div>}
 
       {/* Add product form */}
       <div className="form-container">
@@ -158,8 +204,8 @@ function Inventory() {
             />
           </div>
         </div>
-        <button className="btn btn-primary" onClick={handleAddProduct}>
-          Add Product
+        <button className="btn btn-primary" onClick={handleAddProduct} disabled={loading}>
+          {loading ? "Adding..." : "Add Product"}
         </button>
       </div>
 
@@ -195,8 +241,12 @@ function Inventory() {
 
           <div className="form-group">
             <label>&nbsp;</label>
-            <button className="btn btn-warning" onClick={handleUpdateStock}>
-              Update Stock
+            <button 
+              className="btn btn-warning" 
+              onClick={handleUpdateStock}
+              disabled={loading}
+            >
+              {loading ? "Updating..." : "Update Stock"}
             </button>
           </div>
         </div>
@@ -215,6 +265,7 @@ function Inventory() {
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Description</th>
                 <th>Category</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -229,11 +280,13 @@ function Inventory() {
                   className={p.quantity < 5 ? "low-stock" : ""}
                 >
                   <td>{p.name}</td>
+                  <td>{p.description}</td>
                   <td>{p.category}</td>
                   <td>M{p.price}</td>
                   <td>
                     <span className={p.quantity < 5 ? "low-stock-text" : ""}>
                       {p.quantity}
+                      {p.quantity < 5 && <span className="low-stock-indicator"> (Low Stock)</span>}
                     </span>
                   </td>
                   <td>
@@ -247,6 +300,7 @@ function Inventory() {
                     <button 
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDeleteProduct(p.id)}
+                      disabled={loading}
                     >
                       Delete
                     </button>

@@ -1,7 +1,7 @@
 import React from "react";
 
 function Dashboard() {
-  // Products data with 5 items per category
+  
   const products = {
     meats: [
       { id: 1, name: "Chicken Wings", price: 50, image: "/chicken.jpg" },

@@ -19,7 +19,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #1e2a78 0%, #4f63f7 100%);
+  background-color: #1260af ;
   color: white;
   padding: 15px 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -85,7 +85,7 @@ body {
   color: #2c3e50;
   margin: 25px 0 15px 0;
   padding-bottom: 10px;
-  border-bottom: 3px solid #4f63f7;
+  border-bottom: 3px solid #1260af ;
   font-weight: 600;
 }
 
@@ -128,7 +128,7 @@ body {
 .card-value {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #4f63f7;
+  color: #1260af ;
   margin-bottom: 5px;
 }
 
@@ -139,7 +139,7 @@ body {
 }
 
 .card-button {
-  background: linear-gradient(135deg, #1e2a78 0%, #4f63f7 100%);
+  background-color: #1260af ;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -168,7 +168,7 @@ table {
 }
 
 table th {
-  background: linear-gradient(135deg, #1e2a78 0%, #4f63f7 100%);
+  background-color: #1260af ;
   color: white;
   padding: 16px 20px;
   text-align: left;
@@ -276,7 +276,7 @@ table tr:hover {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #1e2a78 0%, #4f63f7 100%);
+  background-color:  #1260af ;
   color: white;
 }
 
@@ -615,3 +615,9 @@ table tr:hover {
     padding: 20px;
   }
 }
+/* Stop table row hover effect */
+table tr:hover {
+  background-color: inherit !important;
+  transform: none !important;
+}
+

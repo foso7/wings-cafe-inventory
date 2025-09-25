@@ -4,20 +4,13 @@ import axios from 'axios';
 function Sales() {
   const [sales, setSales] = useState([]);
   const [products, setProducts] = useState([]);
-  const [customers, setCustomers] = useState([]);
-  const [newSale, setNewSale] = useState({
-    productId: '',
-    customerId: '',
-    quantity: 1,
-    saleDate: new Date().toISOString().split('T')[0],
-    totalAmount: 0
-  });
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     fetchSales();
     fetchProducts();
-    fetchCustomers();
   }, []);
 
   const fetchSales = async () => {
@@ -30,80 +23,73 @@ function Sales() {
     setProducts(res.data);
   };
 
-  const fetchCustomers = async () => {
-    const res = await axios.get("http://localhost:5000/customers");
-    setCustomers(res.data);
-  };
+  const addToCart = () => {
+    const product = products.find(p => p.id === selectedProductId);
+    if (!product) return;
 
-  const handleProductChange = (e) => {
-    const product = products.find(p => p.id === e.target.value);
-    setSelectedProduct(product);
-    setNewSale({
-      ...newSale,
-      productId: e.target.value,
-      totalAmount: product ? product.price * newSale.quantity : 0
-    });
-  };
-
-  const handleQuantityChange = (e) => {
-    const quantity = parseInt(e.target.value) || 1;
-    setNewSale({
-      ...newSale,
-      quantity: quantity,
-      totalAmount: selectedProduct ? selectedProduct.price * quantity : 0
-    });
-  };
-
-  const handleCustomerChange = (e) => {
-    setNewSale({
-      ...newSale,
-      customerId: e.target.value
-    });
-  };
-
-  const handleAddSale = async () => {
-    if (!newSale.productId || !newSale.customerId || newSale.quantity <= 0) {
-      alert("Select product, customer and quantity.");
+    if (quantity > product.quantity) {
+      alert(`Not enough stock! Only ${product.quantity} available.`);
       return;
     }
 
-    if (selectedProduct && newSale.quantity > selectedProduct.quantity) {
-      alert(`Not enough stock! Only ${selectedProduct.quantity} available.`);
-      return;
+    const existingIndex = cart.findIndex(item => item.productId === selectedProductId);
+    if (existingIndex >= 0) {
+      // Update quantity if already in cart
+      const updatedCart = [...cart];
+      if (updatedCart[existingIndex].quantity + quantity > product.quantity) {
+        alert(`Not enough stock! Only ${product.quantity} available.`);
+        return;
+      }
+      updatedCart[existingIndex].quantity += quantity;
+      updatedCart[existingIndex].totalAmount = updatedCart[existingIndex].quantity * product.price;
+      setCart(updatedCart);
+    } else {
+      // Add new product to cart
+      setCart([
+        ...cart,
+        {
+          productId: product.id,
+          name: product.name,
+          price: product.price,
+          quantity,
+          totalAmount: product.price * quantity
+        }
+      ]);
     }
+
+    // Reset selection
+    setSelectedProductId('');
+    setQuantity(1);
+  };
+
+  const removeFromCart = (productId) => {
+    setCart(cart.filter(item => item.productId !== productId));
+  };
+
+  const completeSale = async () => {
+    if (cart.length === 0) return alert("Cart is empty.");
 
     try {
-      const customerName = customers.find(c => c.id === newSale.customerId)?.name || 'Walk-in Customer';
+      for (const item of cart) {
+        await axios.post("http://localhost:5000/sales", {
+          saleDate: new Date().toISOString().split('T')[0],
+          productId: item.productId,
+          productName: item.name,
+          productPrice: item.price,
+          quantity: item.quantity,
+          totalAmount: item.totalAmount
+        });
 
-      const saleData = {
-        ...newSale,
-        productName: selectedProduct.name,
-        productPrice: selectedProduct.price,
-        productCategory: selectedProduct.category,
-        customerName
-      };
+        // Update stock
+        const product = products.find(p => p.id === item.productId);
+        await axios.patch(`http://localhost:5000/products/${item.productId}`, {
+          quantity: product.quantity - item.quantity
+        });
+      }
 
-      await axios.post("http://localhost:5000/sales", saleData);
-
-      // Update product stock
-      await axios.patch(`http://localhost:5000/products/${selectedProduct.id}`, {
-        quantity: selectedProduct.quantity - newSale.quantity
-      });
-
-      // Reset form
-      setNewSale({
-        productId: '',
-        customerId: '',
-        quantity: 1,
-        saleDate: new Date().toISOString().split('T')[0],
-        totalAmount: 0
-      });
-      setSelectedProduct(null);
-
-      // Refresh data
+      setCart([]);
       fetchSales();
       fetchProducts();
-
       alert("Sale completed successfully!");
     } catch (err) {
       console.error(err);
@@ -112,75 +98,118 @@ function Sales() {
   };
 
   const totalRevenue = sales.reduce((sum, s) => sum + (s.totalAmount || 0), 0);
+  const cartTotal = cart.reduce((sum, item) => sum + item.totalAmount, 0);
+
+  // Format currency function
+  const formatCurrency = (amount) => {
+    return `M${parseFloat(amount).toFixed(2)}`;
+  };
 
   return (
     <div className="main-container">
       <h2>Sales Management</h2>
 
-      {/* Form */}
+      {/* Add to Cart */}
       <div className="form-container">
-        <h3>Record New Sale</h3>
+        <h3>Add Products to Cart</h3>
 
-        <div>
+        <div className="form-group">
           <label>Product *</label>
-          <select value={newSale.productId} onChange={handleProductChange}>
+          <select 
+            value={selectedProductId} 
+            onChange={e => setSelectedProductId(e.target.value)}
+            className="form-select"
+          >
             <option value="">Select Product</option>
             {products.map(p => (
               <option key={p.id} value={p.id}>
-                {p.name} - M{p.price} (Stock: {p.quantity})
+                {p.name} - {formatCurrency(p.price)} (Stock: {p.quantity})
               </option>
             ))}
           </select>
         </div>
 
-        <div>
-          <label>Customer *</label>
-          <select value={newSale.customerId} onChange={handleCustomerChange}>
-            <option value="">Select Customer</option>
-            {customers.map(c => (
-              <option key={c.id} value={c.id}>{c.name}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
+        <div className="form-group">
           <label>Quantity *</label>
           <input
             type="number"
             min="1"
-            max={selectedProduct ? selectedProduct.quantity : 1}
-            value={newSale.quantity}
-            onChange={handleQuantityChange}
+            value={quantity}
+            onChange={e => setQuantity(parseInt(e.target.value) || 1)}
+            className="form-input"
           />
-          {selectedProduct && <small>Max: {selectedProduct.quantity}</small>}
         </div>
 
-        <div>
-          <label>Unit Price</label>
-          <input type="text" disabled value={selectedProduct ? `M${selectedProduct.price}` : 'M0.00'} />
-        </div>
-
-        <div>
-          <label>Total Amount</label>
-          <input type="text" disabled value={`M${newSale.totalAmount}`} />
-        </div>
-
-        <button onClick={handleAddSale} disabled={!newSale.productId || !newSale.customerId}>
-          Complete Sale
+        <button 
+          onClick={addToCart} 
+          disabled={!selectedProductId}
+          className="btn btn-primary"
+        >
+          Add to Cart
         </button>
       </div>
 
-      {/* Sales Table */}
-      <div>
+      {/* Cart */}
+      {cart.length > 0 && (
+        <div className="table-container">
+          <h3>Shopping Cart</h3>
+          <table className="sales-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map(item => (
+                <tr key={item.productId}>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
+                  <td>{formatCurrency(item.price)}</td>
+                  <td>{formatCurrency(item.totalAmount)}</td>
+                  <td>
+                    <button 
+                      onClick={() => removeFromCart(item.productId)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan="3" style={{textAlign: 'right', fontWeight: 'bold'}}>Cart Total:</td>
+                <td style={{fontWeight: 'bold'}}>{formatCurrency(cartTotal)}</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+          <button 
+            onClick={completeSale}
+            className="btn btn-success"
+            style={{marginTop: '15px'}}
+          >
+            Complete Sale
+          </button>
+        </div>
+      )}
+
+      {/* Sales History */}
+      <div className="table-container">
         <h3>Sales History</h3>
-        <table>
+        <table className="sales-table">
           <thead>
             <tr>
               <th>Date</th>
               <th>Product</th>
               <th>Quantity</th>
               <th>Unit Price</th>
-              <th>Total</th>
+              <th>Total Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -189,17 +218,21 @@ function Sales() {
                 <td>{s.saleDate}</td>
                 <td>{s.productName}</td>
                 <td>{s.quantity}</td>
-                <td>{s.productPrice}</td>
-                <td>{s.totalAmount}</td>
+                <td>{formatCurrency(s.productPrice)}</td>
+                <td>{formatCurrency(s.totalAmount)}</td>
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="4" style={{textAlign: 'right', fontWeight: 'bold'}}>Total Revenue:</td>
+              <td style={{fontWeight: 'bold'}}>{formatCurrency(totalRevenue)}</td>
+            </tr>
+          </tfoot>
         </table>
-        <h4>Total Revenue: M{totalRevenue}</h4>
       </div>
     </div>
   );
 }
 
 export default Sales;
-

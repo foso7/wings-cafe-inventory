@@ -6,8 +6,8 @@
       "description": "Spicy chicken wings with secret sauce",
       "category": "Meats",
       "price": 49.95,
-      "quantity": 50,
-      "image": ""
+      "quantity": 49,
+      "image": "/images/chicken.jpg"
     },
     {
       "id": "2",
@@ -15,8 +15,8 @@
       "description": "Mixed greens with vegetables",
       "category": "Vegetables",
       "price": 8.99,
-      "quantity": 30,
-      "image": ""
+      "quantity": 28,
+      "image": "/images/lettuce.jpg"
     },
     {
       "id": "3",
@@ -24,8 +24,8 @@
       "description": "Freshly squeezed orange juice",
       "category": "Drinks",
       "price": 4.99,
-      "quantity": 18,
-      "image": ""
+      "quantity": 13,
+      "image": "/images/lemon.jpg"
     },
     {
       "id": "4",
@@ -33,8 +33,8 @@
       "description": "Fresh apples",
       "category": "Fruits",
       "price": 20,
-      "quantity": 22,
-      "image": ""
+      "quantity": 19,
+      "image": "/images/carrots.jpg"
     },
     {
       "id": "5",
@@ -42,8 +42,8 @@
       "description": "Medium rare steak",
       "category": "Meats",
       "price": 78,
-      "quantity": 100,
-      "image": ""
+      "quantity": 99,
+      "image": "/images/beef.jpg"
     },
     {
       "id": "6",
@@ -51,8 +51,8 @@
       "description": "Fresh tomatoes",
       "category": "Vegetables",
       "price": 3,
-      "quantity": 40,
-      "image": ""
+      "quantity": 39,
+      "image": "/images/Tomato.jpg"
     },
     {
       "id": "7080",
@@ -61,25 +61,25 @@
       "category": "Drinks",
       "price": 25,
       "quantity": 65,
-      "image": ""
-    },
-    {
-      "id": "6bbe",
-      "name": "Motoho",
-      "description": "mabele",
-      "category": "Drinks",
-      "price": 12,
-      "quantity": 43,
-      "image": ""
+      "image": "/images/coke.jpeg"
     },
     {
       "id": "de65",
       "name": "Cucumber",
       "description": "",
-      "category": "Vegatables",
+      "category": "Vegetables",
       "price": 14,
-      "quantity": 72,
-      "image": ""
+      "quantity": 2,
+      "image": "/images/lettuce.jpg"
+    },
+    {
+      "name": "Mageu",
+      "description": "mabele",
+      "category": "Drink",
+      "price": 15,
+      "quantity": 54,
+      "image": "",
+      "id": "1758248788386"
     }
   ],
   "customers": [
@@ -100,112 +100,214 @@
   ],
   "sales": [
     {
-      "id": "1",
-      "productId": 1,
-      "customerId": 1,
-      "quantity": 3,
-      "saleDate": "2025-09-12",
-      "totalAmount": 149.85,
+      "id": "b578",
+      "productId": "1",
+      "customerId": "1",
+      "quantity": 1,
+      "saleDate": "2025-09-17",
+      "totalAmount": 49.95,
       "productName": "Chicken Wings",
       "productPrice": 49.95,
       "productCategory": "Meats",
       "customerName": "Thapelo"
     },
     {
-      "id": "2",
-      "productId": 1,
-      "customerId": 1,
-      "quantity": 3,
-      "saleDate": "2025-09-12",
-      "totalAmount": 149.85,
+      "id": "db79",
+      "saleDate": "2025-09-17",
+      "productId": "2",
+      "productName": "Fresh Salad",
+      "productPrice": 8.99,
+      "quantity": 1,
+      "totalAmount": 8.99
+    },
+    {
+      "id": "e2c7",
+      "saleDate": "2025-09-17",
+      "productId": "1",
       "productName": "Chicken Wings",
       "productPrice": 49.95,
-      "productCategory": "Meats",
-      "customerName": "Thapelo"
+      "quantity": 1,
+      "totalAmount": 49.95
     },
     {
-      "id": "3",
-      "productId": 4,
-      "customerId": 1,
-      "quantity": 3,
-      "saleDate": "2025-09-12",
-      "totalAmount": 60,
-      "productName": "Apples",
-      "productPrice": 20,
-      "productCategory": "Fruits",
-      "customerName": "Thapelo"
+      "id": "01b0",
+      "saleDate": "2025-09-17",
+      "productId": "3",
+      "productName": "Orange Juice",
+      "productPrice": 4.99,
+      "quantity": 1,
+      "totalAmount": 4.99
     },
     {
-      "id": "4",
-      "productId": 1,
-      "customerId": 1,
-      "quantity": 2,
-      "saleDate": "2025-09-12",
-      "totalAmount": 99.9,
+      "id": "8407",
+      "saleDate": "2025-09-17",
+      "productId": "5",
+      "productName": "Beef Steak",
+      "productPrice": 78,
+      "quantity": 1,
+      "totalAmount": 78
+    },
+    {
+      "id": "3311",
+      "saleDate": "2025-09-17",
+      "productId": "3",
+      "productName": "Orange Juice",
+      "productPrice": 4.99,
+      "quantity": 1,
+      "totalAmount": 4.99
+    },
+    {
+      "id": "8687",
+      "saleDate": "2025-09-17",
+      "productId": "1",
       "productName": "Chicken Wings",
       "productPrice": 49.95,
-      "productCategory": "Meats",
-      "customerName": "Thapelo"
+      "quantity": 1,
+      "totalAmount": 49.95
     },
     {
-      "id": "5",
-      "productId": 4,
-      "customerId": 1,
-      "quantity": 4,
-      "saleDate": "2025-09-12",
-      "totalAmount": 80,
-      "productName": "Apples",
-      "productPrice": 20,
-      "productCategory": "Fruits",
-      "customerName": "Thapelo"
+      "saleDate": "2025-09-18",
+      "productId": "1",
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "quantity": 1,
+      "totalAmount": 49.95,
+      "id": "70Hn7CJ"
     },
     {
-      "id": "d2b9",
+      "saleDate": "2025-09-18",
       "productId": "4",
-      "customerId": "1",
-      "quantity": 1,
-      "saleDate": "2025-09-12",
-      "totalAmount": 20,
       "productName": "Apples",
       "productPrice": 20,
-      "productCategory": "Fruits",
-      "customerName": "Thapelo"
-    },
-    {
-      "id": "c96e",
-      "productId": "6bbe",
-      "customerId": "1",
       "quantity": 1,
-      "saleDate": "2025-09-12",
-      "totalAmount": 12,
-      "productName": "Motoho",
-      "productPrice": 12,
-      "productCategory": "Drinks",
-      "customerName": "Thapelo"
+      "totalAmount": 20,
+      "id": "g-NkVR_"
     },
     {
-      "id": "5af0",
+      "saleDate": "2025-09-18",
+      "productId": "1",
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "quantity": 4,
+      "totalAmount": 199.8,
+      "id": "6yPfGbc"
+    },
+    {
+      "saleDate": "2025-09-18",
       "productId": "3",
-      "customerId": "1",
-      "quantity": 1,
-      "saleDate": "2025-09-12",
-      "totalAmount": 4.99,
       "productName": "Orange Juice",
       "productPrice": 4.99,
-      "productCategory": "Drinks",
-      "customerName": "Thapelo"
+      "quantity": 1,
+      "totalAmount": 4.99,
+      "id": "YtiBmJN"
     },
     {
-      "id": "9635",
+      "saleDate": "2025-09-18",
+      "productId": "1",
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "quantity": 4,
+      "totalAmount": 199.8,
+      "id": "N9u3BNN"
+    },
+    {
+      "saleDate": "2025-09-18",
       "productId": "3",
-      "customerId": "1",
-      "quantity": 1,
-      "saleDate": "2025-09-12",
-      "totalAmount": 4.99,
       "productName": "Orange Juice",
       "productPrice": 4.99,
-      "productCategory": "Drinks",
-      "customerName": "Thapelo"
+      "quantity": 1,
+      "totalAmount": 4.99,
+      "id": "KHo0BNw"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "2",
+      "productName": "Fresh Salad",
+      "productPrice": 8.99,
+      "quantity": 2,
+      "totalAmount": 17.98,
+      "id": "G2Uv8n2"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "4",
+      "productName": "Apples",
+      "productPrice": 20,
+      "quantity": 1,
+      "totalAmount": 20,
+      "id": "8DSvurP"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "2",
+      "productName": "Fresh Salad",
+      "productPrice": 8.99,
+      "quantity": 2,
+      "totalAmount": 17.98,
+      "id": "Z2BnoEM"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "4",
+      "productName": "Apples",
+      "productPrice": 20,
+      "quantity": 1,
+      "totalAmount": 20,
+      "id": "3vt5DkI"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "6",
+      "productName": "Tomato",
+      "productPrice": 3,
+      "quantity": 1,
+      "totalAmount": 3,
+      "id": "UGiOeix"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "6",
+      "productName": "Tomato",
+      "productPrice": 3,
+      "quantity": 1,
+      "totalAmount": 3,
+      "id": "4Np6RzL"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "1",
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "quantity": 1,
+      "totalAmount": 49.95,
+      "id": "bcma1EJ"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "1",
+      "productName": "Chicken Wings",
+      "productPrice": 49.95,
+      "quantity": 1,
+      "totalAmount": 49.95,
+      "id": "EZGKQFB"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "3",
+      "productName": "Orange Juice",
+      "productPrice": 4.99,
+      "quantity": 1,
+      "totalAmount": 4.99,
+      "id": "JrR_iw5"
+    },
+    {
+      "saleDate": "2025-09-19",
+      "productId": "4",
+      "productName": "Apples",
+      "productPrice": 20,
+      "quantity": 1,
+      "totalAmount": 20,
+      "id": "hpqL5F6"
     }
   ]
 }

@@ -1,64 +1,116 @@
 .inventory-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .inventory-section {
-    margin-bottom: 30px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .inventory-section h3 {
-    margin-bottom: 10px;
-  }
-  
-  .inventory-section input,
-  .inventory-section select {
-    margin: 5px;
-    padding: 5px;
-  }
-  
-  .inventory-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .inventory-table th,
-  .inventory-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .btn-add,
-  .btn-update,
-  .btn-delete {
-    padding: 5px 10px;
-    margin: 5px;
-    cursor: pointer;
-  }
-  
-  .btn-add {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  .btn-update {
-    background-color: #2196f3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  .btn-delete {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  
+  padding: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.inventory-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.inventory-section:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.inventory-section h3 {
+  margin-bottom: 15px;
+  color: #1e2a78;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.inventory-section input,
+.inventory-section select {
+  margin: 5px 0;
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+}
+
+.inventory-section input:focus,
+.inventory-section select:focus {
+  outline: none;
+  border-color: #4f63f7;
+  box-shadow: 0 0 0 3px rgba(79, 99, 247, 0.1);
+  background-color: #fff;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.inventory-table th,
+.inventory-table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.inventory-table th {
+  background-color: #1260af;
+  color: white;
+  font-weight: 600;
+}
+
+.inventory-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.inventory-table tr:hover {
+  background-color: #f1f5ff;
+  transform: scale(1.01);
+}
+
+.btn-add,
+.btn-update,
+.btn-delete {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn-add {
+  background: linear-gradient(135deg, #38a169 0%, #48bb78 100%);
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-update {
+  background: linear-gradient(135deg, #1e2a78 0%, #4f63f7 100%);
+}
+
+.btn-update:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #e53e3e 0%, #f56565 100%);
+}
+
+.btn-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}

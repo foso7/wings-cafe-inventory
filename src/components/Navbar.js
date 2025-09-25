@@ -1,6 +1,6 @@
 // src/components/Navbar.js
 import React from 'react';
-import '../App.css';  // Corrected path
+import '../App.css';  
 
 function Navbar({ onSelect }) {
   return (
